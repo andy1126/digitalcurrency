@@ -3,7 +3,7 @@
  * Take a request as a hashmap and fulfill the 
  * request according to the class type
  */
-package server;
+package server.commandExecutor;
 
 import java.util.HashMap;
 
