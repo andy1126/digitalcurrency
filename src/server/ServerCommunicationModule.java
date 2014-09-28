@@ -1,3 +1,8 @@
+/** The serverCommunicationModule receive ENC request from a client and then 
+ * create a socket in a separate thread(SingleSockHandler), The module itself
+ * keep a map all currently working connections in sockList, which is a map between
+ * user and sockets.
+ */
 package server;
 import java.io.*;
 import java.net.*;
@@ -27,6 +32,7 @@ public class ServerCommunicationModule extends Thread{
 				e.printStackTrace();
 				break;
 			}finally{
+				// close all existing connections
 				for(User tmp: sockList.keySet()){
 					try {
 						sockList.get(tmp).getSock().close();
@@ -43,6 +49,9 @@ public class ServerCommunicationModule extends Thread{
 	}
 	public void insertClientSocketHandler(User user, SingleSockHandler handler){
 		sockList.put(user, handler);
+	}
+	public void removeSock(User user){
+		sockList.remove(user);
 	}
 	
 	
